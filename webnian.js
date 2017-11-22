@@ -38,12 +38,11 @@ var util = (function() {
   }
 
   function toDouble(n) {
-    n = n.toString()
-    return n[1] ? n : '0'+n
+    return n.toString()[1] ? n : '0'+n
   }
 
   function getBirthdayById(id, split) {
-		// if (!this.isIdNum(id)) return
+		if (!this.isIdNum(id)) return
 
     var tmpStr = ''
     var split = split || '-'
@@ -122,6 +121,87 @@ var util = (function() {
     return obj
   }
 
+  function cleanHtml(html) {
+    return html.replace(/<\/?[^>]*>/ig, '').replace(/&nbsp;/ig, '')
+  }
+
+  function random(str, end) {
+    return Math.random() * (end - str) + str
+  }
+
+  function date(date, format) {
+    var date = new Date(date)
+    var obj = {
+      yyyy: date.getFullYear(),
+      yy: date.getFullYear().toString().substring(2),
+      MM: toDouble(date.getMonth() + 1),
+      M: date.getMonth() + 1,
+      dd: toDouble(date.getDate()),
+      d: date.getDate(),
+      hh: toDouble(date.getHours()),
+      mm: toDouble(date.getMinutes()),
+      ss: toDouble(date.getSeconds()),
+      h: date.getHours(),
+      m: date.getMinutes(),
+      s: date.getSeconds()
+    }
+    format || (format = "yyyy-MM-dd hh:mm:ss")
+    return format.replace(/[a-z]+/ig, function(n) {
+      return obj[n]
+    })
+  }
+
+  function isIdNum(num){
+    num = num.toString().toUpperCase();
+    if (!(/(^\d{15}$)|(^\d{17}([0-9]|X)$)/.test(num))) return false
+    var len = num.length, re;
+    if (len == 15) {
+      re = new RegExp(/^(\d{6})(\d{2})(\d{2})(\d{2})(\d{3})$/)
+      var arrSplit = num.match(re)
+      var dtmBirth = new Date('19' + arrSplit[2] + '/' + arrSplit[3] + '/' + arrSplit[4])
+      if (!(dtmBirth.getYear() == Number(arrSplit[2])
+        && ((dtmBirth.getMonth() + 1) == Number(arrSplit[3]))
+        && dtmBirth.getDate() == Number(arrSplit[4]))) {
+        return false
+      } else {
+        var arrInt = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2)
+        var arrCh = new Array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2')
+        var nTemp = 0, i;
+        num = num.substr(0, 6) + '19' + num.substr(6, num.length - 6);
+        for(i = 0; i < 17; i ++) {
+          nTemp += num.substr(i, 1) * arrInt[i]
+        }
+        num += arrCh[nTemp % 11]
+        return true
+      }
+    }
+
+    if (len == 18) {
+      re = new RegExp(/^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/);
+      var arrSplit = num.match(re);
+      var dtmBirth = new Date(arrSplit[2] + "/" + arrSplit[3] + "/" + arrSplit[4]);
+      if (!(dtmBirth.getFullYear() == Number(arrSplit[2])
+        && (dtmBirth.getMonth() + 1) == Number(arrSplit[3])
+        && dtmBirth.getDate() == Number(arrSplit[4]))) {
+        return false
+      } else {
+        var valnum;
+        var arrInt = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2);
+        var arrCh = new Array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2');
+        var nTemp = 0, i;
+        for(i = 0; i < 17; i ++) {
+          nTemp += num.substr(i, 1) * arrInt[i]
+        }
+        valnum = arrCh[nTemp % 11]
+        if (valnum != num.substr(17, 1)) {
+          return false
+        }
+        return true
+      }
+    }
+    return false
+  }
+
   return {
     getUrlQueryString: getUrlQueryString,        // 获取URL上传的参数
     copyObject: copyObject,           // 深拷贝对象
@@ -135,5 +215,9 @@ var util = (function() {
     isMobile: isMobile,         // 判断是不是手机号
     birthDayAge: birthDayAge,   // 通过年月日获得年龄
     mix: mix,           // 合并2个对象
+    cleanHtml: cleanHtml,    //将HTML标签净化为纯文本
+    random: random,        // 获取一个范围内的随机数
+    date: date,           // 毫秒数转年月日，时分秒
+    isIdNum: isIdNum,       //判断是不是身份证号
   }
 })()

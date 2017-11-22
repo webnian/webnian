@@ -8,15 +8,8 @@
 
     <script src="./webnian.js"></script>
     <script>
-    var a = {
-      name: 'zhangsan',
-      age: 24
-    }
-
-    var b = {
-      sex: '男'
-    }
-    console.log(util.mix(a, b));
+      var b = util.birthDayAge(util.getBirthdayById('510181198909183604', '/'))
+      console.log(b);
     </script>
   </body>
 </html>
