@@ -58,30 +58,30 @@ gulp.task('minSass', function() {
 // })
 
 gulp.task('minifyjs', function() {
-  gulp.src(['./webnian.js'])
+  gulp.src(['./src/webnian.js'])
   .pipe(plumber())
   // .pipe(concat('index.js'))
   .pipe(rename({suffix: '.min'}))
   .pipe(uglify())
-  .pipe(gulp.dest('./'))
+  .pipe(gulp.dest('src/'))
 })
 
-gulp.task('minHtml', function() {
-  var options = {
-    removeComments: true,   // 清除HTML注释
-    collapseWhitespace: true,  // 压缩HTML
-    collapseBooleanAttributes: true,  //省略布尔属性的值 <input checked="true"/> ==> <input />
-    removeEmptyAttributes: true,   //删除所有空格作属性值 <input id="" /> ==> <input />
-    removeScriptTypeAttributes: true,  //删除<script>的type="text/javascript"
-    removeStyleLinkTypeAttributes: true,   // removeStyleLinkTypeAttributes
-    minifyJS: true,     //压缩页面JS
-    minifyCSS: true     // 压缩页面CSS
-  }
-  gulp.src('src/**/*.html')
-  .pipe(plumber())
-  .pipe(htmlmin(options))
-  .pipe(gulp.dest('dist'))
-})
+// gulp.task('minHtml', function() {
+//   var options = {
+//     removeComments: true,   // 清除HTML注释
+//     collapseWhitespace: true,  // 压缩HTML
+//     collapseBooleanAttributes: true,  //省略布尔属性的值 <input checked="true"/> ==> <input />
+//     removeEmptyAttributes: true,   //删除所有空格作属性值 <input id="" /> ==> <input />
+//     removeScriptTypeAttributes: true,  //删除<script>的type="text/javascript"
+//     removeStyleLinkTypeAttributes: true,   // removeStyleLinkTypeAttributes
+//     minifyJS: true,     //压缩页面JS
+//     minifyCSS: true     // 压缩页面CSS
+//   }
+//   gulp.src('src/**/*.html')
+//   .pipe(plumber())
+//   .pipe(htmlmin(options))
+//   .pipe(gulp.dest('dist'))
+// })
 
 gulp.task('clean', function() {
   del(['dist/*', 'src/css/*'])
@@ -102,4 +102,4 @@ gulp.task('watch',['minSass', 'minifyjs'], function () {
   ['minSass', 'minifyjs'])
 })
 
-gulp.task('dist', ['minSass', 'minifyjs', 'minHtml', 'minImg', 'iconfont'])
+gulp.task('dist', ['minSass', 'minifyjs', 'minImg', 'iconfont'])

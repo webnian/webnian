@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="./index.css" rel="stylesheet" type="text/css" />
+    <style media="screen">
+      .box {
+        background: #ccc;
+          height: 2000px;
+        overflow: auto;
+      }
+      /*.content {
+        width: 3000px;
+        height: 2000px;
+        background: blue;
+      }*/
+    </style>
+  </head>
+  <body>
+    <div class="box" style="margin: 10px;">
+
+    </div>
+
+    <script src="./webnian.js"></script>
+    <script src="./$.js"></script>
+    <script>
+      util.ajax({
+        url: 'http://gp.prev.demo580.com/user/info/belongtolist',
+        method: 'GET',
+        data: {
+          token: "b4bf4652-4d95-4217-a882-4a67fa108705"
+        },
+        success: function(result) {
+          console.log(result);
+        }
+      })
+    </script>
+  </body>
+</html>
