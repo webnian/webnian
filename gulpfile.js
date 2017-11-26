@@ -29,20 +29,18 @@ var autoprefixer = require('gulp-autoprefixer')
 //   .pipe(gulp.dest('dist/css'))
 // })
 
-gulp.task('minSass', function() {
-  gulp.src('src/scss/index.scss')
-  .pipe(plumber())
-  .pipe(sass())
-  .pipe(concat('index.css'))
-  .pipe(autoprefixer({
-    browsers: ['last 2 versions', 'Android >= 4.2'],
-    cascade: false
-  }))
-  .pipe(rename({suffix: '.min'}))
-  .pipe(minifyCss())
-  .pipe(gulp.dest('src/assets'))
-  .pipe(gulp.dest('dist/assets'))
-})
+// gulp.task('minSass', function() {
+//   gulp.src('src/webnian.scss')
+//   .pipe(plumber())
+//   .pipe(sass())
+//   .pipe(autoprefixer({
+//     browsers: ['last 2 versions', 'Android >= 4.2'],
+//     cascade: false
+//   }))
+//   .pipe(rename({suffix: '.min'}))
+//   .pipe(minifyCss())
+//   .pipe(gulp.dest('src'))
+// })
 
 // gulp.task('minCss', function() {
 //   gulp.src('src/css/**/*.css')
@@ -97,9 +95,9 @@ gulp.task('iconfont', function() {
   .pipe(gulp.dest('dist/font'))
 })
 
-gulp.task('watch',['minSass', 'minifyjs'], function () {
-	gulp.watch(['src/scss/**/*.scss', 'src/js/**/*.js'],
-  ['minSass', 'minifyjs'])
+gulp.task('watch',['minifyjs'], function () {
+	gulp.watch(['src/**/*.js'],
+  ['minifyjs'])
 })
 
 gulp.task('dist', ['minSass', 'minifyjs', 'minImg', 'iconfont'])
