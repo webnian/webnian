@@ -44,3 +44,4 @@ utils.isMobile('xxx')
 <p>removeCookie(name)          // 删除cookie</p>
 <p>ajax({method, async, data})         // ajax请求</p>
 <p>scrollUnique(ele)         // 子级元素滚动不影响父级</p>
+<p>querySelector(name)       // dom缓存</p>

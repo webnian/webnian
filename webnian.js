@@ -293,6 +293,11 @@
     })
   }
 
+  function querySelector(name) {
+    if (!getElements) var getElements = {}
+    return getElements[name] = getElements[name] || document.querySelectorAll(name)
+  }
+
   return {
     isName: isName,           // 判断是不是姓名
     isChinese: isChinese,         // 判断是不是中文
@@ -318,6 +323,7 @@
     getCookie: getCookie,      // 获取cookie
     removeCookie: removeCookie,    // 删除cookie
     ajax: ajax,         // ajax请求
-    scrollUnique: scrollUnique
+    scrollUnique: scrollUnique,   // 子级元素滚动不影响父级
+    querySelector: querySelector,   // dom缓存
   }
 })

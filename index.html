@@ -3,9 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-    <link href="./webnian.css" rel="stylesheet" type="text/css" />
     <style media="screen">
-
+      .box {
+        width: 200px;
+        height: 100px;
+      }
     </style>
   </head>
   <body>
@@ -15,16 +17,9 @@
 
     <script src="./webnian.js"></script>
     <script>
-      util.ajax({
-        url: 'http://gp.prev.demo580.com/user/info/belongtolist',
-        method: 'GET',
-        data: {
-          token: "b4bf4652-4d95-4217-a882-4a67fa108705"
-        },
-        success: function(result) {
-          console.log(result);
-        }
-      })
+      console.log(util);
+      var a = util.querySelector('.box')[0]
+      a.style.background = 'red'
     </script>
   </body>
 </html>
