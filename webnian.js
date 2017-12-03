@@ -1,4 +1,11 @@
-var util = (function() {
+(function(webnian) {
+  if (typeof module === 'object' && typeof module.exports === 'object') {
+    module.exports = webnian()
+  } else {
+    window.util = webnian()
+  }
+
+})(function() {
   function isName(name) {
     return (/^[a-zA-Z\u4e00-\u9fa5]{0,30}$/).test(name)
   }
@@ -64,7 +71,7 @@ var util = (function() {
 
   function getUrlQueryString(url) {
     var reg = new RegExp("(^|&)" + url + "=([^&]*)(&|$)", "i");
-		var arr = window.location.hash.split('?')
+  	var arr = window.location.hash.split('?')
     var r = arr.length > 1 ? arr[1].match(reg) : null
     return r ? decodeURIComponent(r[2]) : ''
   }
@@ -105,7 +112,7 @@ var util = (function() {
   }
 
   function getBirthdayById(id, split) {
-		if (!this.isIdNum(id)) return
+  	if (!this.isIdNum(id)) return
     var tmpStr = ''
     var split = split || '-'
     id = id.toString()
@@ -117,42 +124,42 @@ var util = (function() {
       tmpStr = tmpStr.substring(0, 4) + split + tmpStr.substring(4, 6) + split + tmpStr.substring(6)
     }
     return tmpStr
-	}
+  }
 
   function getGenderById(id) {
-		if (!this.isIdNum(id)) return ''
+  	if (!this.isIdNum(id)) return ''
     id = id.toString()
     if (id.length === 18) {
       return id.substr(16, 1) % 2 == 1 ? 1 : 2
     } else if (id.length === 15) {
       return id.substr(14, 1) % 2 == 1 ? 1 : 2
     }
-	}
+  }
 
   function birthDayAge(birth) {
-		if (!birth) return ''
+  	if (!birth) return ''
 
-		if (birth) {
-			var dis = new Date().getFullYear() - new Date(birth).getFullYear()
-			var disM = new Date().getMonth() - new Date(birth).getMonth()
-			var disD = new Date().getDate() - new Date(birth).getDate()
-			if (dis < 0) return ''
+  	if (birth) {
+  		var dis = new Date().getFullYear() - new Date(birth).getFullYear()
+  		var disM = new Date().getMonth() - new Date(birth).getMonth()
+  		var disD = new Date().getDate() - new Date(birth).getDate()
+  		if (dis < 0) return ''
 
-			if (dis == 0) {
+  		if (dis == 0) {
         if (disM == 0) {
           return disD >= 0 ? 0 : ''
-				} else {
+  			} else {
           return disM > 0 ? dis : ''
         }
-			} else if (dis > 0) {
+  		} else if (dis > 0) {
         if (disM == 0) {
-					return disD >= 0 ? dis : dis - 1
-				} else {
+  				return disD >= 0 ? dis : dis - 1
+  			} else {
           return disM > 0 ? dis : dis - 1
-				}
-			}
-		}
-	}
+  			}
+  		}
+  	}
+  }
 
   function mix(o, n) {
     var obj = o || {}
@@ -193,7 +200,7 @@ var util = (function() {
   }
 
   function filterNumber(num) {
-		return num.toString().replace(/\D/ig, '')
+  	return num.toString().replace(/\D/ig, '')
   }
 
   function scroll() {
@@ -223,7 +230,6 @@ var util = (function() {
     if (obj.secure) {
       str += ';' + secure
     }
-    console.log(str);
     document.cookie = str
   }
 
@@ -271,6 +277,22 @@ var util = (function() {
     }
   }
 
+  function scrollUnique(ele) {
+    var type = document.mozHidden ? 'DOMMouseScroll' : 'mousewheel'
+    ele.addEventListener(type, function(e) {
+      var scrollTop = this.scrollTop,
+          scrollHeight = this.scrollHeight,
+          height = this.clientHeight,
+          e = e || event;
+      var delta = e.wheelDelta ? e.wheelDelta : -(e.detail || 0)
+
+      if ((delta > 0 && scrollTop <= delta) || (delta < 0 && scrollHeight - height - scrollTop <= -1 * delta)) {
+        this.scrollTop = delta > 0 ? 0 : scrollHeight
+        e.preventDefault()
+      }
+    })
+  }
+
   return {
     isName: isName,           // 判断是不是姓名
     isChinese: isChinese,         // 判断是不是中文
@@ -296,5 +318,6 @@ var util = (function() {
     getCookie: getCookie,      // 获取cookie
     removeCookie: removeCookie,    // 删除cookie
     ajax: ajax,         // ajax请求
+    scrollUnique: scrollUnique
   }
-})()
+})
