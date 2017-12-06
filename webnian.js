@@ -69,6 +69,10 @@
     return false
   }
 
+  function isEmail(str) {
+    return /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/.test(str)
+  }
+
   function getUrlQueryString(url) {
     var reg = new RegExp("(^|&)" + url + "=([^&]*)(&|$)", "i");
   	var arr = window.location.hash.split('?')
@@ -215,7 +219,8 @@
   }
 
   function setCookie(obj) {
-    var str = encodeURIComponent(obj.name) + '=' + encodeURIComponent(obj.value)
+    // var str = encodeURIComponent(obj.name) + '=' + encodeURIComponent(obj.value)
+    var str = (obj.name) + '=' + (obj.value)
     if (obj.expires) {
       var date = new Date()
       date.setDate(date.getDate() + obj.expires)
@@ -234,7 +239,7 @@
   }
 
   function getCookie(name) {
-    var arr = document.cookie ? decodeURIComponent(document.cookie).split(';') : []
+    var arr = document.cookie ? decodeURIComponent(document.cookie).split('; ') : []
     for (var i in arr) {
       var arr2 = arr[i].split('=')
       if (arr2.length >= 2) {
@@ -247,9 +252,7 @@
   }
 
   function removeCookie(name) {
-    if (getCookie(name)) {
-      document.cookie = name + '=;expires=' + new Date()
-    }
+    setCookie(name, 1, -1)
   }
 
   function ajax(obj) {
@@ -298,11 +301,46 @@
     return getElements[name] = getElements[name] || document.querySelectorAll(name)
   }
 
+  function arrayEqual(arr1, arr2) {
+    if (arr1 === arr2) return true
+    if (arr1.length != arr2.length) return false
+    for (var i = 0, len = arr1.length; i < len; i++) {
+      if (arr1[i] !== arr2[i]) return false
+    }
+    return true
+  }
+
+  function hasClass(ele, cls) {
+    return (new RegExp('(\\s|^)'+ cls + '(\\s|$)')).test(ele.className)
+  }
+
+  function addClass(ele, cls) {
+    if (!hasClass(ele, cls)) ele.className += ' ' + cls
+  }
+
+  function removeClass(ele, cls) {
+    if (hasClass(ele, cls)) {
+      var reg = new RegExp('(\\s|^)'+ cls + '(\\s|$)')
+      ele.className = ele.className.replace(reg, '')
+    }
+  }
+
+  function offset(ele) {
+    var pos = { left: 0, top: 0 }
+    while(ele) {
+      pos.left += ele.offsetLeft
+      pos.top += ele.offsetTop
+      ele = ele.offsetParent
+    }
+    return pos
+  }
+
   return {
     isName: isName,           // 判断是不是姓名
     isChinese: isChinese,         // 判断是不是中文
     isMobile: isMobile,         // 判断是不是手机号
     isIdNum: isIdNum,       //判断是不是身份证号
+    isEmail: isEmail,       // 判断是不是邮箱
     getUrlQueryString: getUrlQueryString,      // 获取URL上传的参数
     copyObject: copyObject,           // 深拷贝对象
     linkTo: linkTo,       // 连接到某个网址
@@ -325,5 +363,10 @@
     ajax: ajax,         // ajax请求
     scrollUnique: scrollUnique,   // 子级元素滚动不影响父级
     querySelector: querySelector,   // dom缓存
+    arrayEqual: arrayEqual,         // 判断2个数组是否绝对相等
+    hasClass: hasClass,             // 判断元素是否有某个class样式
+    addClass: addClass,             // 向某个元素添加class样式
+    removeClass: removeClass,       // 删除元素class样式
+    offset: offset,                 // 获取一个元素的距离文档(document)的位置，类似jQ中的offset()
   }
 })

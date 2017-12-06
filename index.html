@@ -11,15 +11,15 @@
     </style>
   </head>
   <body>
-    <div class="box" style="margin: 10px;">
+    <div id="box" class="box content  red   blue " style="margin: 10px;">
 
     </div>
 
     <script src="./webnian.js"></script>
     <script>
-      console.log(util);
-      var a = util.querySelector('.box')[0]
-      a.style.background = 'red'
+      var box = document.getElementById('box')
+      console.log(util.offset(box));
+
     </script>
   </body>
 </html>

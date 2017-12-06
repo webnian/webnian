@@ -23,6 +23,7 @@ utils.isMobile('xxx')
 <p>isChinese('xxx')            // 判断是不是中文</p>
 <p>isMobile('xxx')             // 判断是不是手机号</p>
 <p>isIdNum(idNum)              //判断是不是身份证号</p>
+<p>isEmail(str)              //判断是不是邮箱</p>
 <p>getUrlQueryString(url)      // 获取URL上传的参数</p>
 <p>copyObject(obj)             // 深拷贝对象</p>
 <p>linkTo(url)                 // 连接到某个网址</p>
@@ -45,3 +46,8 @@ utils.isMobile('xxx')
 <p>ajax({method, async, data})         // ajax请求</p>
 <p>scrollUnique(ele)         // 子级元素滚动不影响父级</p>
 <p>querySelector(name)       // dom缓存</p>
+<p>arrayEqual(arr1, arr2)       // 判断2个数组是否绝对相等</p>
+<p>hasClass(ele, cls)       // 判断元素是否有某个class样式</p>
+<p>addClass(ele, cls)       // 向某个元素添加class样式</p>
+<p>removeClass(ele, cls)       // 删除元素class样式</p>
+<p>offset(ele)       // 获取一个元素的距离文档(document)的位置，类似jQ中的offset()</p>
