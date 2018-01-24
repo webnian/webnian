@@ -142,13 +142,11 @@
 
   function birthDayAge(birth) {
   	if (!birth) return ''
-
   	if (birth) {
   		var dis = new Date().getFullYear() - new Date(birth).getFullYear()
   		var disM = new Date().getMonth() - new Date(birth).getMonth()
   		var disD = new Date().getDate() - new Date(birth).getDate()
   		if (dis < 0) return ''
-
   		if (dis == 0) {
         if (disM == 0) {
           return disD >= 0 ? 0 : ''
@@ -243,9 +241,7 @@
     for (var i in arr) {
       var arr2 = arr[i].split('=')
       if (arr2.length >= 2) {
-        if (arr2[0] == name) {
-          return arr2[1]
-        }
+        if (arr2[0] == name) return arr2[1]
       }
     }
     return ''
@@ -288,7 +284,6 @@
           height = this.clientHeight,
           e = e || event;
       var delta = e.wheelDelta ? e.wheelDelta : -(e.detail || 0)
-
       if ((delta > 0 && scrollTop <= delta) || (delta < 0 && scrollHeight - height - scrollTop <= -1 * delta)) {
         this.scrollTop = delta > 0 ? 0 : scrollHeight
         e.preventDefault()
@@ -319,10 +314,9 @@
   }
 
   function removeClass(ele, cls) {
-    if (hasClass(ele, cls)) {
-      var reg = new RegExp('(\\s|^)'+ cls + '(\\s|$)')
-      ele.className = ele.className.replace(reg, '')
-    }
+    if (!hasClass(ele, cls)) return
+    var reg = new RegExp('(\\s|^)'+ cls + '(\\s|$)')
+    ele.className = ele.className.replace(reg, '')
   }
 
   function offset(ele) {
@@ -355,7 +349,7 @@
   }
 
   function fullScreenStatus() {
-    return document.fullscreen || document.mozFullScreen || document.webkitIsFullScreen || window.ieIsfSceen 
+    return document.fullscreen || document.mozFullScreen || document.webkitIsFullScreen || window.ieIsfSceen
   }
 
   function cancelFullScreen() {
@@ -384,6 +378,10 @@
       callback(fullScreenStatus())
     }, false)
   }
+
+  function camelCase(str) {
+    return str.replace(/-+(.)?/g, function(match, chr) { return chr ? chr.toUpperCase() : '' })
+  }
 
   return {
     isName: isName,           // 判断是不是姓名
@@ -423,5 +421,6 @@
     fullScreenStatus: fullScreenStatus,     // 判断是否全屏
     cancelFullScreen: cancelFullScreen,     // 退出全屏
     onFullScreenEvent: onFullScreenEvent,   // 全屏事件回调
+    camelCase: camelCase,               //将一组字符串变成“骆驼”命名法的新字符串，如果该字符已经是“骆驼”命名法，则不变化。
   }
 })
