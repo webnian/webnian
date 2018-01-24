@@ -51,3 +51,8 @@ utils.isMobile('xxx')
 <p>addClass(ele, cls)       // 向某个元素添加class样式</p>
 <p>removeClass(ele, cls)       // 删除元素class样式</p>
 <p>offset(ele)       // 获取一个元素的距离文档(document)的位置，类似jQ中的offset()</p>
+<p>dedupe(arr)       // 数组去重</p>
+<p>requestFullscreen(ele)       // 全屏</p>
+<p>fullScreenStatus()       // 判断是否全屏</p>
+<p>cancelFullScreen()       // 退出全屏</p>
+<p>onFullScreenEvent(callback)       // 全屏事件回调</p>

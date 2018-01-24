@@ -7,6 +7,7 @@
       .box {
         width: 200px;
         height: 100px;
+        background: #999;
       }
     </style>
   </head>
@@ -15,11 +16,16 @@
 
     </div>
 
+    <button type="button" name="button">士大夫士大夫</button>
+
     <script src="./webnian.js"></script>
     <script>
       var box = document.getElementById('box')
-      console.log(util.offset(box));
-
+      var button = document.querySelector('button')
+      util.requestFullscreen(document.body)
+      util.onFullScreenEvent(function(status) {
+        console.log(status);
+      })
     </script>
   </body>
 </html>

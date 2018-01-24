@@ -335,6 +335,56 @@
     return pos
   }
 
+  function dedupe(arr) {
+    return Array.from(new Set(arr))
+  }
+
+  function requestFullscreen(ele) {
+    var docElm = document.documentElement
+    ele.addEventListener("click", function () {
+      if (docElm.requestFullscreen) {
+       ele.requestFullscreen()
+      } else if (docElm.msRequestFullscreen) {
+       ele.msRequestFullscreen()
+      } else if (docElm.mozRequestFullScreen) {
+       ele.mozRequestFullScreen()
+      } else if (docElm.webkitRequestFullScreen) {
+       ele.webkitRequestFullScreen()
+      }
+    }, false)
+  }
+
+  function fullScreenStatus() {
+    return document.fullscreen || document.mozFullScreen || document.webkitIsFullScreen || window.ieIsfSceen 
+  }
+
+  function cancelFullScreen() {
+    if (document.exitFullscreen) {
+     document.exitFullscreen()
+    } else if (document.mozCancelFullScreen) {
+     document.mozCancelFullScreen()
+    } else if (document.webkitCancelFullScreen) {
+     document.webkitCancelFullScreen()
+    } else if (document.msExitFullscreen) {
+     document.msExitFullscreen()
+    }
+  }
+
+  function onFullScreenEvent(callback) {
+    document.addEventListener('fullscreenchange', function() {
+      callback(fullScreenStatus())
+    }, false)
+    document.addEventListener('mozfullscreenchange', function() {
+      callback(fullScreenStatus())
+    }, false)
+    document.addEventListener('webkitfullscreenchange', function() {
+      callback(fullScreenStatus())
+    }, false)
+    document.addEventListener('msfullscreenchange', function() {
+      callback(fullScreenStatus())
+    }, false)
+  }
+
   return {
     isName: isName,           // 判断是不是姓名
     isChinese: isChinese,         // 判断是不是中文
@@ -368,5 +418,10 @@
     addClass: addClass,             // 向某个元素添加class样式
     removeClass: removeClass,       // 删除元素class样式
     offset: offset,                 // 获取一个元素的距离文档(document)的位置，类似jQ中的offset()
+    dedupe: dedupe,                 // 数组去重
+    requestFullscreen: requestFullscreen,   // 全屏
+    fullScreenStatus: fullScreenStatus,     // 判断是否全屏
+    cancelFullScreen: cancelFullScreen,     // 退出全屏
+    onFullScreenEvent: onFullScreenEvent,   // 全屏事件回调
   }
 })
