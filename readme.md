@@ -1,5 +1,5 @@
 ##for more information
-- [Website](http://webnian.com/sec/webnianjs)
+- [webnianjs中文文档](http://webnian.com/sec/webnianjs)
 >欢迎访问webnianjs中文文档
 
 ## Install
