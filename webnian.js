@@ -410,7 +410,99 @@
 	}
 	function isPlainObject(obj) {
 		return isObject(obj) && !isWindow(obj) && Object.getPrototypeOf(obj) == Object.prototype
-	}
+  }
+  function getUrlData(param) {
+    var str = '?'
+    for (var key in param) {
+      var oValue = param[key]
+      str += key + '=' + oValue + '&'
+    }
+    return str
+  }
+  function animationend() {
+    var name = {
+      AnimationEvent: "animationend",
+      WebKitAnimationEvent: "webkitAnimationEnd"
+    }
+    for (var i in name) {
+      if (/object|function/.test(typeof window[i])) return name[i];
+    }
+    return false;
+  }
+
+  function compact(array) {
+    var index = -1, resIndex = 0, result = [], 
+      length = array ? array.length : 0;
+    while (++index < length) {
+      var value = array[index];
+      if (value) result[resIndex++] = value;
+    }
+    return result;
+  }
+
+  function endsWith(target, str, ignorecase) {
+    var end = target.substring(target.length - str.length);
+    return ignorecase ? end.toLowerCase() === str.toLowerCase() : end === str;
+  }
+
+  function escapeHTML(html){
+    return html.replace(/&/, "&amp;").replace(/</, "&lt;").replace(/>/, "&gt;")
+      .replace(/("|\")/, "&quot;").replace(/'/, "&#39;")
+  }
+
+  function isInWeixinApp() {
+    return /MicroMessenger/.test(navigator.userAgent);
+  }
+
+  function loadScript(url) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript'
+    script.src = url
+    document.body.appendChild(script)
+  }
+
+  function loadStyles(url) {
+    var link = document.createElement('link')
+    link.rel = 'stylesheet'
+    link.type = 'text/css'
+    link.href = url
+    var head = document.head || document.getElementsByTagName('head')[0]
+    head.appendChild(link)
+  }
+
+  function repeat(target, n) {
+    var s = target, total = "";
+    while(n > 0) {
+      if (n % 2 == 1) total += s;
+      if (n == 1) break;
+      s += s;
+      n = n >> 1;
+    }
+    return total;
+  }
+  
+  function startsWith(target, str, ignorecase) {
+    var start = target.substr(0, str.length);
+    return ignorecase ? start.toLowerCase() === str.toLowerCase() : start === str;
+  }
+
+  function transitionend() {
+    var el = document.createElement("bootstrap");
+    var name = {
+      WebkitTransition: 'WebkitTransitionEnd',
+      MozTransition: 'transitionend',
+      OTransition: 'oTransitionEnd otransitionend',
+      transition: 'transitionend'
+    }
+    for (var i in name) {
+      if (el.style[i] !== undefined) return { end: name[i] }
+    }
+    return null
+  }
+
+  function windowTop() {
+    if (window != top) top.location.href = window.location.href;
+  }
 
 	return {
 		isName: isName,           // 判断是不是姓名
@@ -455,6 +547,18 @@
 		isWindow: isWindow,
 		isDocument: isDocument,
 		isObject: isObject,
-		isPlainObject: isPlainObject
+    isPlainObject: isPlainObject,
+    getUrlData: getUrlData,     //get请求传给后台的数据
+    animationend: animationend,   //返回animationend事件
+    compact: compact,   //创建一个新数组，包含原数组中所有的非假值元素。如false, null, 0, "", undefined, 和 NaN 都是假值
+    endsWith: endsWith,
+    escapeHTML: escapeHTML,   //<p class="greeting">Hello world!</p>
+    isInWeixinApp: isInWeixinApp,   //判断是不是微信app环境
+    loadScript: loadScript,     //加载js
+    loadStyles: loadStyles,     //加载css
+    repeat: repeat,     //字符串重复n次
+    startsWith: startsWith,
+    transitionend: transitionend,   //返回transitionend事件
+    windowTop: windowTop,   //将top对象的网址自动导向被嵌入网页的网址
 	}
 })
