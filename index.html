@@ -19,11 +19,8 @@
 
     <script src="./webnian.js"></script>
     <script>
-      var box = document.getElementById('box')
-      var button = document.querySelector('button')
-      button.onclick = function() {
-        location.replace("http://www.baidu.com")
-      }
+      var str = '<p class="greeting">Hello world!</p>'
+      console.log(utils.escapeHTML(str))
     </script>
   </body>
 </html>

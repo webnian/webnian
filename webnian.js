@@ -446,8 +446,8 @@
   }
 
   function escapeHTML(html){
-    return html.replace(/&/, "&amp;").replace(/</, "&lt;").replace(/>/, "&gt;")
-      .replace(/("|\")/, "&quot;").replace(/'/, "&#39;")
+    return html.replace(/&/ig, "&amp;").replace(/</ig, "&lt;").replace(/>/ig, "&gt;")
+      .replace(/("|\")/ig, "&quot;").replace(/'/ig, "&#39;")
   }
 
   function isInWeixinApp() {
